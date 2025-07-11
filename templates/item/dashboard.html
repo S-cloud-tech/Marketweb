@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %} Dashboard {% endblock title %}
+{% block content %}
+<h2>📊 Inventory Dashboard</h2>
+<div class="row mb-3">
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">Total Products</h5>
+                <p class="card-text display-6">{{ total_products }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">Total Categories</h5>
+                <p class="card-text display-6">{{ total_categories }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">Low Stock Products</h5>
+                <p class="card-text display-6 text-danger">{{ low_stock_count }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">Stock In / Out</h5>
+                <p class="card-text">{{ total_stock_in }} in / {{ total_stock_out }} out</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h4>Top Categories</h4>
+<ul class="list-group">
+    {% for category in top_categories %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        {{ category.name }}
+        <span class="badge bg-primary rounded-pill">{{ category.product_count }}</span>
+    </li>
+    {% empty %}
+    <li class="list-group-item">No categories yet</li>
+    {% endfor %}
+</ul>
+{% endblock %}

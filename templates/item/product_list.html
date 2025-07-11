@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %} Products {% endblock title %}
+{% block content %}
+
+<h2>All Products</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Stock Keeping Unit</th>
+            <th>Category</th>
+            <th>Quantity</th>
+            <th>Low Stock Threshold</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in items %}
+        <tr {% if item.is_low_stock %}class="table-warning"{% endif %}>
+            <td>{{ item.name }}</td>
+            <td>{{ item.sku }}</td>
+            <td>{{ item.category.name }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.low_stock_threshold }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}
