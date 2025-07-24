@@ -1,0 +1,49 @@
+services:
+
+  # Database Postgres
+  db:
+    image: postgres:17.5-alpine3.21
+    container_name: market_postgres_db
+    volumes:
+      - market_postgres_db:/var/lib/postgresql/data/
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
+
+  # Redis
+  redis:
+    image: redis:alpine
+    container_name: redis
+
+  # Django Application  
+  web:
+    build: .
+    container_name: marketweb
+    ports:
+      - 8000:8000
+    volumes:
+      - ./:/app
+    depends_on:
+      db:
+        condition: service_healthy
+        restart: true
+
+  #Celery
+  celery:
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ["executable", "arg"]
+    depends_on:
+      db:
+        condition: service_healthy
+        restart: true
+
+volumes:
+  market_postgres_db:
