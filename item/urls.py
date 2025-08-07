@@ -11,7 +11,7 @@ app_name = 'item'
 
 urlpatterns = [
     path('api/', include(router.urls)),
-    path('products/', ProductListView.as_view(), name='low_stock_list'),
+    path('products/', ProductListView.as_view(), name='product_list'),
     path('products/low-stock/', LowStockListView.as_view(), name='low_stock_list'),
     path('dashboard/', InventoryDashboardView.as_view(), name='dashboard')
 ]

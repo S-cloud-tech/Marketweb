@@ -9,9 +9,10 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Item)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'sku', 'category', 'quantity', 'low_stock_threshold', 'updated_at')
-    search_fields = ('name', 'sku')
-    list_filter = ('category',)
+    list_display = ('name', 'category', 'quantity', 'low_stock_threshold', 'updated_at')
+    search_fields = ('name', )
+    list_filter = ('updated_at', 'name',)
+    ordering = ('name', 'category', 'quantity',)
 
 @admin.register(StockUpdate)
 class StockUpdateAdmin(admin.ModelAdmin):
