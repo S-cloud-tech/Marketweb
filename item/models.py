@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+# from users.models import User
 from django.db import models
 from django.utils import timezone
 
@@ -18,6 +18,7 @@ class Item(models.Model):
     name = models.CharField(max_length=225)
     description = models.TextField(blank=True, null=True)
     sku = models.CharField(max_length=50, unique=True, default=0) #Stock keeping unit
+    is_available = models.BooleanField(default=True)
     price = models.FloatField()
     image = models.ImageField(upload_to='item_images', blank=True, null=True)
     quantity = models.IntegerField(default=0)
@@ -26,7 +27,7 @@ class Item(models.Model):
     is_sold = models.BooleanField(default=False)
     is_bad = models.BooleanField(default=False)
     low_stock_threshold = models.IntegerField(default=5)
-    created_by = models.ForeignKey(User, related_name='items', on_delete=models.CASCADE)
+    # created_by = models.ForeignKey(User, related_name='items', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     price_supplied_at = models.FloatField(default=0)

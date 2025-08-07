@@ -1,6 +1,8 @@
 from django.views.generic import ListView, TemplateView
 from django.db.models import Count, Sum
 from django.db import models
+from django.shortcuts import render
+from rest_framework.response import Response
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from .models import Item, StockUpdate, Category
@@ -14,6 +16,17 @@ class ItemViewSet(viewsets.ModelViewSet):
     queryset = Item.objects.all().order_by('-updated_at')
     serializer_class = ItemSerializer
 
+    @action(detail=False, methods=['get'], url_path='')
+    def index(request):
+        items = Item.objects.filter(is_sold=False)[0:6]
+        categories = Category.objects.all()
+
+        return render(request, 'core/index.html', {
+            'categories': categories,
+            'items': items,
+        })
+    
+
     @action(detail=False, methods=['get'], url_path='low-stock')
     def low_stock(self, request):
         """
@@ -26,6 +39,7 @@ class ItemViewSet(viewsets.ModelViewSet):
 class StockUpdateViewSet(viewsets.ModelViewSet):
     queryset = StockUpdate.objects.all().order_by('-timestamp')
     serializer_class = StockUpdateSerializer
+    
 
 class ProductListView(ListView):
     model = Item

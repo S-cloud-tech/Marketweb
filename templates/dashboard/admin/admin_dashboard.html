@@ -1,0 +1,20 @@
+{% comment %} {%% extends "base.html" %}
+{% block content %}
+<h2>Admin Dashboard</h2>
+
+<div class="dashboard-metrics">
+  <div>Total Products: {{ total_products }}</div>
+  <div>Total Users: {{ total_users }}</div>
+  <div>Low Stock Items: {{ low_stock_count }}</div>
+  <div>Monthly Sales: ₦{{ monthly_sales }}</div>
+</div>
+
+<h3>Recent Orders</h3>
+<ul>
+  {% for order in recent_orders %}
+    <li>{{ order.product.name }} - ₦{{ order.total_amount }} by {{ order.created_by }} on {{ order.created_at }}</li>
+  {% empty %}
+    <li>No recent orders</li>
+  {% endfor %}
+</ul>
+{% endblock %} {% endcomment %}
