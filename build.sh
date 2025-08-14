@@ -13,6 +13,9 @@ pip install --upgrade $(cut -d= -f1 requirements.txt)
 echo "Freezing new versions into requirements.txt..."
 pip freeze > requirements.txt
 
+echo "Collecting Static files"
+python manage.py collectstatic --noinput
+
 # deactivate
 # rm -rf env
 

@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,49 +10,106 @@
     <title>{% block title %}{% endblock title %} | Puddle</title>
 </head>
 
-<body class="pb-40">
+<body class="min-h-screen flex flex-col bg-white dark:bg-gray-900 dark:text-gray-100">
+
     <nav class="py-4 px-2 flex justify-between items-center border-b border-gray-200">
-        <a href="/" class="text-xl font-semibold">Puddle</a>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex itmes-center justify-between">
+                <a href="/" class="text-2xl font-bold px-12">Puddle</a>
 
-        <div class="space-x-4">
-            <a href="{% url "item:dashboard" %}" class="text-lg font-semibold hover:text-gray-500">Dashboard</a>
-            <a href="{% url "item:product_list" %}" class="text-lg font-semibold hover:text-gray-500">Products</a>
-            <a href="{% url "blog:post_list" %}" class="text-lg font-semibold hover:text-gray-500">Blog</a>
-            {% comment %} <a href="#" class="text-lg font-semibold hover:text-gray-500">Browse</a> {% endcomment %}
+                {% comment %} Hamburger Button {% endcomment %}
+                <button class="md:hidden text-gray-700 dark:text-gray-200 focus:outline-none" onclick="toggleMenu()">
+                    ☰
+                </button>
 
-            {% comment %} <a href="{% url "users:register" %}" class="px-7 px-4 text-lg font-semibold bg-teal-500 text-white rounded hover:bg-teal-700">Sign
-                Up</a>
-            <a href="{% url "users:login" %}" class="px-6 px-3 text-lg font-semibold bg-gray-500 text-white rounded hover:bg-gray-700">Log
-                In</a>   {% endcomment %}
+                {% comment %} Nav Links {% endcomment %}
+                <div id="nav-links" class=" md-flex space-x-4">
+                    {% if user.is_authenticated %}
+                        <a href="{% url "item:dashboard" %}" class="text-lg font-semibold hover:text-gray-500">Dashboard</a>
+                        <a href="{% url "item:product_list" %}" class="text-lg font-semibold hover:text-gray-500">Products</a>
+                        <a href="{% url "blog:post_list" %}" class="text-lg font-semibold hover:text-gray-500">Blog</a>
+                        <a href="#" class="text-lg font-semibold hover:text-gray-500">Contact</a>
+
+                        <a href="{% url "users:logout" %}" class="px-7 px-4 text-lg font-semibold bg-teal-500 text-white rounded hover:bg-teal-700">Log 
+                            Out</a>
+                    {% else %}
+                        <a href="{% url "users:register" %}" class="px-7 px-4 text-lg font-semibold bg-teal-500 text-white rounded hover:bg-teal-700">Sign
+                            Up</a>
+                        <a href="{% url "users:login" %}" class="px-6 px-3 text-lg font-semibold bg-gray-500 text-white rounded hover:bg-gray-700">Log
+                            In</a> 
+                    {% endif %}
+                </div>
+            </div>
+
+            {% comment %} Mobile nav  {% endcomment %}
+            <div class="md:hidden hidden mt-4 space-x-4">
+                {% if user.is_authenticated %}
+                    <a href="{% url "item:dashboard" %}" class="text-lg font-semibold hover:text-gray-500">Dashboard</a>
+                    <a href="{% url "item:product_list" %}" class="text-lg font-semibold hover:text-gray-500">Products</a>
+                    <a href="{% url "blog:post_list" %}" class="text-lg font-semibold hover:text-gray-500">Blog</a>
+                    <a href="#" class="text-lg font-semibold hover:text-gray-500">Contact</a>
+
+                    <a href="{% url "users:register" %}" class="px-7 px-4 text-lg font-semibold bg-teal-500 text-white rounded hover:bg-teal-700">Log 
+                        Out</a>
+                {% else %}
+                    <a href="{% url "users:register" %}" class="px-7 px-4 text-lg font-semibold bg-teal-500 text-white rounded hover:bg-teal-700">Sign
+                        Up</a>
+                    <a href="{% url "users:login" %}" class="px-6 px-3 text-lg font-semibold bg-gray-500 text-white rounded hover:bg-gray-700">Log
+                        In</a> 
+                {% endif %}
+            </div>
         </div>
     </nav>
-    <div class="px-6 py-6 text-3xl shadow">
+
+    {% comment %} Django Messages {% endcomment %}
+    <div class="max-w-4xl mx-auto mt-4 px-4">
+        {% if messages %}
+            <ul class="space-y-2">
+                {% for message in messages %}
+                    <li clss="p-3 rounded text-sm
+                        {% if message.tags == 'success' %}bg-green-100 text-green-800 dark:bg-green-800 dark:text-white
+                        {% elif message.tags == 'warning' %}bg-yellow-100 text-yellow-800 dark:bg-yellow-700 dark:text-white
+                        {% elif message.tags == 'error' %}bg-red-100 text-red-800 dark:bg-red-800 dark:text-white
+                        {% endif %}">
+                        {{ message }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+
+    {% comment %} Main Content Section {% endcomment %}
+    <div class="flex-1 px-6 py-6 text-2xl shadow">
         {% block content %}
         {% endblock content %}
     </div>
 
-    <footer class="fixed bottom-0 left-0 w-full px-2 py-2 flex justify-between bg-gray-800">
-        <div class="w-2/3 pr-10">
-            <h3 class="mb-5 font-semibold text-gray-400">About</h3>
+    {% comment %} Footer Section {% endcomment %}
+    <footer class="bg-gray-800 text-gray-300 dark:text-gray-300 py-4 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between gap-4">
+            <div class="w-2/3">
+                <h3 class="mb-5 font-semibold text-gray-400">About</h3>
+                <p class="text-sm text-gray-500">Lorem ipsum dolor sit amet consectetur
+                    adipisicing elit.Cupiditate totam perferendis veritatis eveniet officiis autem!
+                    Unde odio eveniet culpa maiores ad sapiente numquam, possimus
+                    alias repellendus quis consequuntur, nobis ipsam.
+                </p>
+            </div>
 
-            <p class="text-lg text-gray-500">Lorem ipsum dolor sit amet consectetur
-                adipisicing elit.Cupiditate totam perferendis veritatis eveniet officiis autem!
-                Unde odio eveniet culpa maiores ad sapiente numquam, possimus
-                alias repellendus quis consequuntur, nobis ipsam.
-            </p>
-        </div>
-
-        <div class="w-1/3">
-            <h3 class="mb-5 font-semibold text-gray-400">Menu</h3>
-
-            <ul class="space-y-2">
-                <li><a href="#" class="text-lg text-teal-500 hover:text-teal-700">About</a></li>
-                <li><a href="#" class="text-lg text-teal-500 hover:text-teal-700">Contact</a></li>
-                <li><a href="#" class="text-lg text-teal-500 hover:text-teal-700">Privacy policy</a></li>
-                <li><a href="#" class="text-lg text-teal-500 hover:text-teal-700">Term of Use</a></li>
-            </ul>
+            <div class="md:w-1/3">
+                <h3 class="mb-5 font-semibold text-gray-400">Menu</h3>
+                <ul class="space-y-1">
+                    <li><a href="#" class="text-lg text-teal-500 hover:text-teal-700">About</a></li>
+                    <li><a href="#" class="text-lg text-teal-500 hover:text-teal-700">Contact</a></li>
+                    <li><a href="#" class="text-lg text-teal-500 hover:text-teal-700">Privacy policy</a></li>
+                    <li><a href="#" class="text-lg text-teal-500 hover:text-teal-700">Term of Use</a></li>
+                </ul>
+            </div>
         </div>
     </footer>
+    {% block javascript %}
+        <script src="{% static "js/base.js" %}"></script>
+    {% endblock javascript %}
 </body>
 
 </html>

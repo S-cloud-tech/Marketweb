@@ -1,4 +1,6 @@
-{% comment %} {%% extends "base.html" %}
+{% extends "base.html" %}
+{% load static %}
+
 {% block content %}
 <h2>Admin Dashboard</h2>
 
@@ -11,10 +13,10 @@
 
 <h3>Recent Orders</h3>
 <ul>
-  {% for order in recent_orders %}
-    <li>{{ order.product.name }} - ₦{{ order.total_amount }} by {{ order.created_by }} on {{ order.created_at }}</li>
+  {% for item in item %}
+    <li>{{ item.name }} - ₦{{ order.total_amount }} by {{ order.created_by }} on {{ order.created_at }}</li>
   {% empty %}
     <li>No recent orders</li>
   {% endfor %}
 </ul>
-{% endblock %} {% endcomment %}
+{% endblock %} 

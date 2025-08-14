@@ -9,7 +9,8 @@ from core.views import LandingPageView
 urlpatterns = [
     path('', LandingPageView.as_view(), name='landing_page'),
     path('shop/', include(('item.urls', 'item'), namespace='items')),
-    # path('users/', include('users.urls', namespace='users')),
+    path('users/', include('users.urls', namespace='users')),
     path('blog/', include(('blog.urls', 'blog'), namespace='blog')),
-    path('admin/', admin.site.urls),
+    path('notadmin/', admin.site.urls),
+    path('accounts/', include('allauth.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
