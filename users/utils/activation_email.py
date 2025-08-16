@@ -30,7 +30,7 @@ def create_email_verification(user):
     return otp, link_token
 
 def send_activation_email(request, user, otp, link_token):
-    activation_path = reverse("users:activate_by_link", kwargs={"uid": user.pk, "token": link_token})
+    activation_path = reverse("users:activate", kwargs={"uid": user.pk, "token": link_token})
     activation_url = request.build_absolute_uri(activation_path)
 
     subject = "Activate your account"
