@@ -1,4 +1,8 @@
-{% extends "base.html" %} {% block title %}Log In{% endblock title %} 
+{% extends "base.html" %} 
+
+{% load socialaccount %}
+
+{% block title %}Log In{% endblock title %} 
 {% block content %}
     <div class="min-h-screen flex items-center justify px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full space-y-8">
@@ -67,7 +71,7 @@
         <div class="w-full md:w-80 my-8 m-auto space-y-3 font-semibold">
             <a
             class="relative flex items-center p-4 rounded-full border no-underline hover:bg-gray-100 w-full"
-            href=""
+            href="{% provider_login_url 'google' %}"
             >
             <svg
                 class="w-6 h-6 absolute left-4"
@@ -94,9 +98,9 @@
             <span class="text-center w-full text-black-500">Sign in with Google</span>
             </a>
 
-            <a
+            {% comment %} <a
             class="relative flex items-center p-4 rounded-full border !no-underline hover:!text-inherit hover:!bg-gray-100 w-full"
-            href=""
+            href="#"
             >
             <svg
                 class="w-6 h-6 absolute left-4"
@@ -112,7 +116,7 @@
 
             <a
             class="relative flex items-center p-4 rounded-full border !no-underline hover:!text-inherit hover:!bg-gray-100 w-full"
-            href=""
+            href="#"
             >
             <svg
                 class="w-6 h-6 absolute left-4"
@@ -128,7 +132,7 @@
 
             <a
             class="relative flex items-center p-4 rounded-full border !no-underline hover:!text-inherit hover:!bg-gray-100 w-full"
-            href=""
+            href="#"
             >
             <svg
                 class="w-6 h-6 text-blue-600 absolute left-4"
@@ -141,7 +145,7 @@
                 />
             </svg>
             <span class="text-center w-full">Sign in with Facebook</span>
-            </a>
+            </a> {% endcomment %}
         </div>
         </form>
     </div>

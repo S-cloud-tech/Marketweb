@@ -56,6 +56,30 @@ ANYMAIL = {
     "BREVO_API_KEY": config('BREVO_API_KEY') # Email Service Provider
 }
 
+# Login URL
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/'  # your role-based view
+LOGOUT_REDIRECT_URL = '/'
+
+SOCIALACCOUNT_LOGIN_ON_GET = True
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'APP': {
+            'client_id': config('CLIENT_ID'),
+            'secret': config('CLIENT_SECRET_KEY'),
+            'key': ''
+        },
+        'AUTH_PARAMS': {
+            'access_type': 'offline',
+        },
+        'OAUTH_PKCE_ENABLED': True,
+    }
+}
 
 # REST_FRAMEWORK = {
 #     'DEFAULT_PERMISSION_CLASSES': [
@@ -97,6 +121,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                'core.context_processors.site_info',
             ],
         },
     },
@@ -156,10 +182,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
-# Login URL
-LOGIN_URL = '/login/'
-LOGIN_REDIRECT_URL = '/'  # your role-based view
 
 
 
