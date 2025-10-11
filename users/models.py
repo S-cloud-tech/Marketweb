@@ -7,12 +7,12 @@ class User(AbstractBaseUser):
     ROLE_CHOICES = (
         ('admin', 'Admin'),
         ('staff', 'Staff'),
-        ('operator', 'Operator'),
+        ('user', 'user'),
     )
     email = models.EmailField(verbose_name="email", unique=True)
     username = models.CharField(max_length=150, unique=True, null=True, blank=True)
     is_email_verified = models.BooleanField(default=False)
-    role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='operator')
+    role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='user')
 
     USERNAME_FIELD = 'email'
 
@@ -20,4 +20,6 @@ class User(AbstractBaseUser):
 
     def __str__(self):
         return self.email
+
+
 

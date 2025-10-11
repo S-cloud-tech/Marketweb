@@ -1,0 +1,156 @@
+<!-- templates/emails/verification_email.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Your Email</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#10B981',
+                        warning: '#F59E0B',
+                        dark: '#1F2937',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-100 font-sans leading-relaxed">
+    <!-- Main Container -->
+    <div class="min-h-screen py-4 px-4">
+        <div class="max-w-2xl mx-auto">
+            <!-- Email Card -->
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                <!-- Header Section with Gradient -->
+                <div class="bg-gradient-to-r from-primary to-blue-600 px-8 py-10 text-center">
+                    <div class="text-white">
+                        <!-- Logo/Brand -->
+                        <div class="inline-flex items-center justify-center w-16 h-16 bg-white/20 rounded-2xl mb-6 backdrop-blur-sm">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <h1 class="text-3xl font-bold mb-2">Marketweb</h1>
+                        <p class="text-blue-100 text-lg">Email Verification Required</p>
+                    </div>
+                </div>
+
+                <!-- Content Section -->
+                <div class="px-8 py-12">
+                    <!-- Greeting -->
+                    <div class="mb-8">
+                        <h2 class="text-2xl font-semibold text-gray-900 mb-4">
+                            Hello {{ user.first_name|default:user.username }}! 👋
+                        </h2>
+                        <p class="text-gray-600 text-lg leading-relaxed">
+                            Thank you for joining us! To get started and secure your account, 
+                            please verify your email address using one of the convenient methods below:
+                        </p>
+                    </div>
+
+                    <!-- OTP Section -->
+                    <div class="bg-gradient-to-br from-primary to-blue-600 rounded-2xl p-8 text-center mb-8 shadow-lg">
+                        <div class="text-white">
+                            <div class="inline-flex items-center justify-center w-12 h-12 bg-white/20 rounded-xl mb-4">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14"></path>
+                                </svg>
+                            </div>
+                            <p class="text-blue-100 font-medium mb-3">Your verification code:</p>
+                            <div class="bg-white/20 backdrop-blur-sm rounded-xl py-6 px-4 mb-4">
+                                <div class="text-4xl font-bold tracking-[0.5em] font-mono">{{ otp }}</div>
+                            </div>
+                            <p class="text-sm text-blue-200">
+                                Enter this code in the app to verify your email
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Divider -->
+                    <div class="flex items-center my-10">
+                        <div class="flex-1 h-px bg-gray-200"></div>
+                        <div class="px-6">
+                            <span class="text-gray-500 font-semibold text-lg">OR</span>
+                        </div>
+                        <div class="flex-1 h-px bg-gray-200"></div>
+                    </div>
+
+                    <!-- Button Section -->
+                    <div class="text-center mb-10">
+                        <p class="text-gray-600 mb-6 text-lg">Click the button below for instant verification:</p>
+                        <a href="{{ activation_link }}" 
+                           class="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-secondary to-emerald-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 text-lg">
+                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            Verify Email Address
+                        </a>
+                    </div>
+
+                    <!-- Warning Box -->
+                    <div class="bg-amber-50 border border-amber-200 rounded-xl p-6 mb-8">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <svg class="w-6 h-6 text-warning mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                                </svg>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="font-semibold text-amber-800 mb-2">Security Notice</h4>
+                                <p class="text-amber-700 leading-relaxed">
+                                    This verification code and link will expire in <strong>10 minutes</strong> for your security. 
+                                    If you didn't create an account with us, ignore this email.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Troubleshooting -->
+                    <div class="bg-gray-50 rounded-xl p-6 mb-8">
+                        <h4 class="font-semibold text-gray-800 mb-3 flex items-center">
+                            <svg class="w-5 h-5 mr-2 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            Having trouble with the button?
+                        </h4>
+                        <p class="text-gray-600 mb-3">Copy and paste this link into your web browser:</p>
+                        <div class="bg-white border rounded-lg p-3 font-mono text-sm break-all text-primary">
+                            {{ activation_link }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="bg-gray-50 px-4 py-4 border-t border-gray-200">
+                    <div class="text-center">
+                        <div class="flex items-center justify-center mb-4">
+                            <div class="w-2 h-2 bg-gray-300 rounded-full mr-2"></div>
+                            <p class="text-sm text-gray-500">This email was sent automatically. Please do not reply.</p>
+                            <div class="w-2 h-2 bg-gray-300 rounded-full ml-2"></div>
+                        </div>
+                        <p class="text-xs text-gray-400 mb-2">
+                            Need help? Contact our support team at support@scloudtech.com
+                        </p>
+                        <p class="text-xs text-gray-400">
+                            &copy; {% now "Y" %} Marketweb. All rights reserved.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Footer -->
+            <div class="text-center mt-8">
+                <p class="text-sm text-gray-500">
+                    Sent with ❤️ from S-cloud-tech
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

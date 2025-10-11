@@ -25,6 +25,7 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+commands.txt
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -90,6 +91,10 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+
+# docker files
+Dockerfile
+docker-compose.yml
 
 # mkdocs documentation
 /site
