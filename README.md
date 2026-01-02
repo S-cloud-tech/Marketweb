@@ -6,11 +6,11 @@
 
 The repository includes the following major components: :contentReference[oaicite:1]{index=1}
 - `blog/` — Blog posts & CMS-style content  
-- `core/` — Core configuration, settings, and utilities  
+- `core/` —   template info
 - `dashboard/` — Admin or seller dashboard features  
-- `item/` — Product & catalog management  
+- `item/` — Product & catalog management 
 - `media/` — Media uploads and storage support  
-- `puddle/` — cart, orders or miscellaneous features  
+- `puddle/` — Core configuration, settings, and utilities 
 - `users/` — Authentication, profiles, user data  
 - `static/` & `templates/` — Frontend assets and HTML templates  
 - Dev & deployment config: `Dockerfile`, `docker-compose.yml`, `nginx.conf`, etc. :contentReference[oaicite:2]{index=2}
