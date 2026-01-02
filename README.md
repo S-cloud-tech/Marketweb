@@ -10,7 +10,7 @@ The repository includes the following major components: :contentReference[oaicit
 - `dashboard/` — Admin or seller dashboard features  
 - `item/` — Product & catalog management  
 - `media/` — Media uploads and storage support  
-- `puddle/` — (Likely) cart, orders or miscellaneous features  
+- `puddle/` — cart, orders or miscellaneous features  
 - `users/` — Authentication, profiles, user data  
 - `static/` & `templates/` — Frontend assets and HTML templates  
 - Dev & deployment config: `Dockerfile`, `docker-compose.yml`, `nginx.conf`, etc. :contentReference[oaicite:2]{index=2}
